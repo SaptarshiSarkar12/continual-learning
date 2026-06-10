@@ -1,8 +1,8 @@
-"""General-purpose helpers for continual learning experiments."""
+"""General-purpose helpers."""
 
 import torch
 
 
 def get_device():
-    """Return the best available device (``'cuda'`` if available, else ``'cpu'``)."""
+    """Return ``'cuda'`` if available, else ``'cpu'``."""
     return "cuda" if torch.cuda.is_available() else "cpu"

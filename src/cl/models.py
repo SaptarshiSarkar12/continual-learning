@@ -1,22 +1,11 @@
-"""Simple neural network architectures for continual learning demos.
-
-These small models are intentionally kept lightweight so that the
-demonstrations run quickly even on CPU-only machines.
-"""
+"""Lightweight neural network architectures for demos."""
 
 import torch
 from torch import nn
 
 
 class SimpleCNN(nn.Module):
-    """A minimal 2-layer CNN for 28×28 grayscale image classification.
-
-    Architecture::
-
-        Conv2d(1→32, 3×3) → ReLU
-        Conv2d(32→64, 3×3) → ReLU → MaxPool2d(2)
-        Flatten → Linear(9216→128) → ReLU → Linear(128→10)
-    """
+    """2-layer CNN for 28×28 grayscale classification (10 classes)."""
 
     def __init__(self):
         super().__init__()
@@ -35,13 +24,7 @@ class SimpleCNN(nn.Module):
 
 
 class SimpleMLP(nn.Module):
-    """A 3-layer fully-connected network for 28×28 grayscale images.
-
-    Architecture::
-
-        Flatten → Linear(784→256) → ReLU
-        Linear(256→128) → ReLU → Linear(128→10)
-    """
+    """3-layer MLP for 28×28 grayscale classification (10 classes)."""
 
     def __init__(self):
         super().__init__()

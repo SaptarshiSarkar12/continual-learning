@@ -1,37 +1,16 @@
-"""Visualization helpers for continual learning experiments.
-
-Provides reusable plotting functions for loss landscapes, accuracy/loss
-timelines, and training-trajectory overlays.
-"""
+"""Plotting helpers for loss landscapes, timelines, and trajectories."""
 
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
 
-# ---------------------------------------------------------------------------
-# Loss landscape
-# ---------------------------------------------------------------------------
-
 def compute_loss_landscape(model, criterion, loader, device=None,
                            steps=30, scale=0.5, seed=42):
-    """Compute a 2-D loss landscape around the current model parameters.
+    """Compute a 2-D loss surface around the current parameters.
 
-    Two random orthonormal directions are sampled, and the loss is evaluated
-    on a ``steps × steps`` grid centred on the current weights.
-
-    Args:
-        model:     The model whose neighbourhood to probe.
-        criterion: Loss function.
-        loader:    ``DataLoader`` to evaluate on.
-        device:    Device string (auto-detected if *None*).
-        steps:     Grid resolution along each axis.
-        scale:     Half-width of the grid in parameter space.
-        seed:      Random seed for reproducible directions.
-
-    Returns:
-        A dict with keys ``'alphas'``, ``'betas'``, ``'Z'``, ``'d1'``,
-        ``'d2'``, ``'base_params'``.
+    Returns a dict with keys ``'alphas'``, ``'betas'``, ``'Z'``,
+    ``'d1'``, ``'d2'``, ``'base_params'``.
     """
     if device is None:
         device = next(model.parameters()).device
@@ -83,18 +62,8 @@ def compute_loss_landscape(model, criterion, loader, device=None,
     }
 
 
-# ---------------------------------------------------------------------------
-# Plotting helpers
-# ---------------------------------------------------------------------------
-
 def plot_loss_landscape(landscape, *, title="Loss Landscape", cmap="viridis"):
-    """Render a filled contour plot of a 2-D loss landscape.
-
-    Args:
-        landscape: Dict returned by :func:`compute_loss_landscape`.
-        title:     Plot title.
-        cmap:      Matplotlib colourmap name.
-    """
+    """Filled contour plot of a 2-D loss landscape."""
     fig, ax = plt.subplots(figsize=(6, 5))
     cf = ax.contourf(landscape["alphas"], landscape["betas"],
                      landscape["Z"], levels=50, cmap=cmap)
@@ -108,15 +77,10 @@ def plot_loss_landscape(landscape, *, title="Loss Landscape", cmap="viridis"):
 
 def plot_accuracy_timeline(acc_a, acc_b, epochs_a, epochs_b,
                            acc_a_during_b=None):
-    """Plot per-epoch training accuracy across two sequential tasks.
+    """Plot per-epoch accuracy across two sequential tasks.
 
-    Args:
-        acc_a:          List of accuracies during Task A training.
-        acc_b:          List of accuracies during Task B training.
-        epochs_a:       Number of Task A epochs.
-        epochs_b:       Number of Task B epochs.
-        acc_a_during_b: Optional list of Task A *test* accuracies recorded
-                        during Task B training (shows the forgetting curve).
+    *acc_a_during_b*: optional Task A test accuracies recorded each
+    epoch while training on Task B (the forgetting curve).
     """
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(range(1, epochs_a + 1), acc_a, "o-", label="Task A train acc", markersize=3)
@@ -137,14 +101,7 @@ def plot_accuracy_timeline(acc_a, acc_b, epochs_a, epochs_b,
 
 
 def plot_loss_timeline(loss_a, loss_b, epochs_a, epochs_b):
-    """Plot per-epoch log-loss across two sequential tasks.
-
-    Args:
-        loss_a:   List of losses during Task A training.
-        loss_b:   List of losses during Task B training.
-        epochs_a: Number of Task A epochs.
-        epochs_b: Number of Task B epochs.
-    """
+    """Plot per-epoch log-loss across two sequential tasks."""
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(range(1, epochs_a + 1), np.log(loss_a), "o-",
             label="Task A log-loss", markersize=3)
@@ -163,14 +120,7 @@ def plot_loss_timeline(loss_a, loss_b, epochs_a, epochs_b):
 def plot_trajectory_overlay(snapshots, landscape, *,
                             title="Training Trajectory on Loss Landscape",
                             cmap="viridis"):
-    """Overlay the training trajectory on a loss-landscape contour plot.
-
-    Args:
-        snapshots:  List of model snapshots (``nn.Module`` deep-copies).
-        landscape:  Dict returned by :func:`compute_loss_landscape`.
-        title:      Plot title.
-        cmap:       Matplotlib colourmap name.
-    """
+    """Overlay the training trajectory on a loss-landscape contour plot."""
     device = landscape["base_params"].device
     d1, d2 = landscape["d1"], landscape["d2"]
     base = landscape["base_params"]

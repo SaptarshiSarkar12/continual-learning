@@ -1,9 +1,4 @@
-"""Generic training loops for continual learning experiments.
-
-The functions here are intentionally strategy-agnostic so that every demo
-(catastrophic forgetting, EWC, SI, knowledge distillation, …) can reuse the
-same core loop and only override the loss computation when needed.
-"""
+"""Strategy-agnostic training loops."""
 
 import copy
 
@@ -15,20 +10,19 @@ def train_and_log(model, loader, optimizer, criterion, epochs,
     """Train *model* and return per-epoch accuracy / loss histories.
 
     Args:
-        model:     A ``torch.nn.Module``.
-        loader:    Training ``DataLoader``.
-        optimizer: A ``torch.optim.Optimizer``.
-        criterion: Loss function (e.g. ``nn.CrossEntropyLoss()``).
-        epochs:    Number of training epochs.
-        device:    Device string.  If *None*, auto-detected from the model.
-        snapshots: If provided, a *list* to which a ``deepcopy`` of the model
-                   is appended after every epoch (used for trajectory plots).
-        eval_loader: If provided, a secondary ``DataLoader`` on which accuracy
-                     is evaluated after every epoch (e.g. to track forgetting).
+        model:       ``nn.Module`` to train.
+        loader:      Training ``DataLoader``.
+        optimizer:   Optimizer instance.
+        criterion:   Loss function.
+        epochs:      Number of epochs.
+        device:      Device (auto-detected if *None*).
+        snapshots:   List to append model deep-copies to each epoch.
+        eval_loader: Secondary ``DataLoader`` evaluated each epoch
+                     (e.g. to track forgetting on a previous task).
 
     Returns:
-        ``(accuracies, losses, eval_accuracies)`` — three lists of length
-        *epochs*.  *eval_accuracies* is empty when *eval_loader* is *None*.
+        ``(accuracies, losses, eval_accuracies)`` — three lists.
+        *eval_accuracies* is empty when *eval_loader* is *None*.
     """
     if device is None:
         device = next(model.parameters()).device

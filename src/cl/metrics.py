@@ -1,20 +1,10 @@
-"""Evaluation metrics for continual learning experiments."""
+"""Evaluation metrics."""
 
 import torch
 
 
 def evaluate(model, loader, device=None):
-    """Compute classification accuracy over an entire DataLoader.
-
-    Args:
-        model:  A ``torch.nn.Module`` whose output logits have shape ``(B, C)``.
-        loader: A ``DataLoader`` yielding ``(inputs, targets)`` batches.
-        device: Device string (e.g. ``'cuda'``).  If *None*, auto-detected
-                from the model's first parameter.
-
-    Returns:
-        Accuracy as a float in ``[0, 1]``.
-    """
+    """Compute classification accuracy over a DataLoader."""
     if device is None:
         device = next(model.parameters()).device
 
