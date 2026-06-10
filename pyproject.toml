@@ -1,6 +1,12 @@
 [project]
-name = "continual-learning"
+name = "continual-learning-utils"
 version = "0.1.0"
+description= "A Python package for continual learning algorithms and utilities."
+authors = [
+    { name = "Saptarshi Sarkar", email = "saptarshi.programmer@gmail.com" },
+]
+readme= "README.md"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
     "matplotlib>=3.10.9",
@@ -8,6 +14,9 @@ dependencies = [
     "torch>=2.12.0",
     "torchvision>=0.27.0",
 ]
+
+[project.urls]
+Repository = "https://github.com/SaptarshiSarkar12/continual-learning"
 
 [dependency-groups]
 dev = [

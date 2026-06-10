@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/continual-learning.iml" filepath="$PROJECT_DIR$/.idea/continual-learning.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/continual-learning@1.iml" filepath="$PROJECT_DIR$/.idea/continual-learning@1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/continual-learning-utils.iml" filepath="$PROJECT_DIR$/.idea/continual-learning-utils.iml" />
     </modules>
   </component>
 </project>
