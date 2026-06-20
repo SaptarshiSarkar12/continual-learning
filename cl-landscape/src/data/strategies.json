@@ -1,0 +1,218 @@
+[
+  {
+    "id": "experience-replay",
+    "category": "Replay-based",
+    "name": "Experience Replay",
+    "year": 2017,
+    "description": "Stores a subset of past training samples in a memory buffer and replays them alongside new task data during training. This interleaving of old and new examples helps the model retain previously learned representations while adapting to new tasks, effectively combating catastrophic forgetting through data rehearsal.",
+    "paper_url": "https://arxiv.org/abs/1708.04782",
+    "tags": ["Replay", "Vision", "Benchmark: CIFAR100", "Buffer"]
+  },
+  {
+    "id": "generative-replay",
+    "category": "Replay-based",
+    "name": "Generative Replay (DGR)",
+    "year": 2017,
+    "description": "Uses a generative model (e.g., GAN or VAE) to synthesize pseudo-samples from previous tasks instead of storing raw data. The generator learns the distribution of past tasks, enabling unlimited replay without requiring a memory buffer, making it particularly suitable for privacy-sensitive applications.",
+    "paper_url": "https://arxiv.org/abs/1705.08690",
+    "tags": ["Replay", "Generative", "Privacy", "GAN"]
+  },
+  {
+    "id": "gradient-episodic-memory",
+    "category": "Replay-based",
+    "name": "Gradient Episodic Memory (GEM)",
+    "year": 2017,
+    "description": "Stores a small episodic memory of past examples and uses them to constrain gradient updates during training on new tasks. GEM projects the gradient onto a feasible region that does not increase the loss on previous tasks, providing formal guarantees against forgetting.",
+    "paper_url": "https://arxiv.org/abs/1706.08840",
+    "tags": ["Replay", "Gradient Constraint", "Vision", "Benchmark: MNIST"]
+  },
+  {
+    "id": "averaged-gem",
+    "category": "Replay-based",
+    "name": "Averaged GEM (A-GEM)",
+    "year": 2019,
+    "description": "An efficient variant of GEM that replaces the per-task gradient constraints with a single averaged constraint computed from a random subset of the episodic memory. This dramatically reduces computational overhead while maintaining comparable performance to GEM.",
+    "paper_url": "https://arxiv.org/abs/1812.00420",
+    "tags": ["Replay", "Efficient", "Gradient Constraint", "Vision"]
+  },
+  {
+    "id": "dark-experience-replay",
+    "category": "Replay-based",
+    "name": "Dark Experience Replay (DER/DER++)",
+    "year": 2020,
+    "description": "Extends experience replay by storing not just raw input-output pairs but also the model's logits (dark knowledge) at the time of storage. By matching both hard labels and soft logits during replay, DER++ achieves superior knowledge retention and consistently outperforms vanilla experience replay.",
+    "paper_url": "https://arxiv.org/abs/2004.07211",
+    "tags": ["Replay", "Knowledge Distillation", "Vision", "Benchmark: CIFAR100"]
+  },
+  {
+    "id": "mir",
+    "category": "Replay-based",
+    "name": "Maximally Interfered Retrieval (MIR)",
+    "year": 2019,
+    "description": "Proposes a controlled memory retrieval strategy that selects the samples from the buffer that would be most interfered with (i.e., suffer the largest increase in loss) by the incoming parameter update, thereby focusing replay on the most vulnerable memories.",
+    "paper_url": "https://arxiv.org/abs/1908.04742",
+    "tags": ["Replay", "Sample Selection", "Online", "Vision"]
+  },
+  {
+    "id": "ewc",
+    "category": "Regularization-based",
+    "name": "Elastic Weight Consolidation (EWC)",
+    "year": 2017,
+    "description": "Adds a quadratic penalty term to the loss function that discourages changes to parameters important for previous tasks. Importance is estimated using the diagonal of the Fisher Information Matrix, computed after training on each task. This allows the model to learn new tasks while preserving critical weights.",
+    "paper_url": "https://arxiv.org/abs/1612.00796",
+    "tags": ["Regularization", "Fisher Information", "Neuroscience-inspired", "Benchmark: Atari"]
+  },
+  {
+    "id": "si",
+    "category": "Regularization-based",
+    "name": "Synaptic Intelligence (SI)",
+    "year": 2017,
+    "description": "Computes parameter importance online during training by accumulating the contribution of each weight to the reduction in loss along the optimization trajectory. Unlike EWC which requires a separate importance computation phase, SI tracks importance in real-time, making it more computationally efficient.",
+    "paper_url": "https://arxiv.org/abs/1703.04200",
+    "tags": ["Regularization", "Online", "Neuroscience-inspired", "Benchmark: MNIST"]
+  },
+  {
+    "id": "lwf",
+    "category": "Regularization-based",
+    "name": "Learning without Forgetting (LwF)",
+    "year": 2017,
+    "description": "Uses knowledge distillation to preserve the predictions of the old model on new task data. Before training on a new task, the current model's outputs on the new data are recorded as soft targets. A distillation loss then ensures the updated model stays close to these original predictions.",
+    "paper_url": "https://arxiv.org/abs/1606.09282",
+    "tags": ["Regularization", "Distillation", "Vision", "No Buffer"]
+  },
+  {
+    "id": "mas",
+    "category": "Regularization-based",
+    "name": "Memory Aware Synapses (MAS)",
+    "year": 2018,
+    "description": "Estimates parameter importance based on how sensitive the learned function output is to parameter changes, using the gradient of the squared L2 norm of the network output. Unlike EWC, MAS computes importance in an unsupervised manner, not requiring task-specific labels.",
+    "paper_url": "https://arxiv.org/abs/1711.09601",
+    "tags": ["Regularization", "Unsupervised", "Online", "Vision"]
+  },
+  {
+    "id": "rwalk",
+    "category": "Regularization-based",
+    "name": "Riemannian Walk (RWalk)",
+    "year": 2018,
+    "description": "Combines the benefits of EWC and path integral-based methods (like SI) by computing parameter importance using both the Fisher information and the contribution of each weight along the optimization path. This unified framework provides more robust importance estimates.",
+    "paper_url": "https://arxiv.org/abs/1801.10112",
+    "tags": ["Regularization", "Fisher Information", "Path Integral", "Vision"]
+  },
+  {
+    "id": "progressive-nets",
+    "category": "Architecture-based",
+    "name": "Progressive Neural Networks",
+    "year": 2016,
+    "description": "Allocates a new neural network column for each new task and freezes all previous columns. Lateral connections between columns allow forward transfer of features from old tasks to new ones, while the frozen parameters guarantee zero forgetting of previously learned tasks.",
+    "paper_url": "https://arxiv.org/abs/1606.04671",
+    "tags": ["Architecture", "Zero Forgetting", "RL", "Growing Network"]
+  },
+  {
+    "id": "packnet",
+    "category": "Architecture-based",
+    "name": "PackNet",
+    "year": 2018,
+    "description": "Iteratively assigns free parameters to new tasks through network pruning. After training on a task, PackNet prunes unimportant weights and freezes the remaining ones, freeing capacity for future tasks. This packing strategy achieves zero forgetting while efficiently utilizing network capacity.",
+    "paper_url": "https://arxiv.org/abs/1711.05769",
+    "tags": ["Architecture", "Pruning", "Zero Forgetting", "Vision"]
+  },
+  {
+    "id": "den",
+    "category": "Architecture-based",
+    "name": "Dynamically Expandable Networks (DEN)",
+    "year": 2018,
+    "description": "Dynamically decides whether to reuse existing neurons, add new ones, or split neurons when learning a new task. By selectively expanding the network architecture based on task requirements, DEN balances model capacity with task complexity.",
+    "paper_url": "https://arxiv.org/abs/1708.01547",
+    "tags": ["Architecture", "Dynamic Expansion", "Selective", "Vision"]
+  },
+  {
+    "id": "supermask",
+    "category": "Architecture-based",
+    "name": "SupSup (Supermasks in Superposition)",
+    "year": 2020,
+    "description": "Learns a separate binary mask (supermask) for each task applied to a randomly initialized, fixed backbone network. Task identity determines which mask to apply, enabling zero-interference between tasks. Multiple tasks can be handled without growing the network's parameter count.",
+    "paper_url": "https://arxiv.org/abs/2006.14769",
+    "tags": ["Architecture", "Masking", "Zero Forgetting", "Vision"]
+  },
+  {
+    "id": "hat",
+    "category": "Architecture-based",
+    "name": "Hard Attention to the Task (HAT)",
+    "year": 2018,
+    "description": "Learns a hard attention mask for each task that selectively gates hidden units. During training on new tasks, a gradient compensation mechanism prevents updates to units that are important for previous tasks. This provides near-zero forgetting with minimal capacity overhead.",
+    "paper_url": "https://arxiv.org/abs/1801.01423",
+    "tags": ["Architecture", "Attention Masking", "Task-specific", "Vision"]
+  },
+  {
+    "id": "maml-continual",
+    "category": "Meta-learning",
+    "name": "OML (Online Meta-Learning)",
+    "year": 2019,
+    "description": "Adapts Model-Agnostic Meta-Learning (MAML) for continual learning by meta-learning representations that are robust to catastrophic forgetting. The learned representations enable fast adaptation to new tasks with minimal interference to previously learned ones.",
+    "paper_url": "https://arxiv.org/abs/1905.12588",
+    "tags": ["Meta-learning", "MAML", "Few-shot", "Online"]
+  },
+  {
+    "id": "anml",
+    "category": "Meta-learning",
+    "name": "A Neuromodulated Meta-Learning Algorithm (ANML)",
+    "year": 2020,
+    "description": "Uses a neuromodulatory network to gate the activations of a prediction network during meta-learning. This biologically-inspired gating mechanism learns to protect important representations while allowing plasticity for new learning, achieving strong continual few-shot performance.",
+    "paper_url": "https://arxiv.org/abs/2002.09571",
+    "tags": ["Meta-learning", "Neuromodulation", "Few-shot", "Vision"]
+  },
+  {
+    "id": "la-maml",
+    "category": "Meta-learning",
+    "name": "La-MAML (Look-ahead MAML)",
+    "year": 2021,
+    "description": "Proposes a look-ahead variant of MAML for online continual learning that modulates per-parameter learning rates. By meta-learning the learning rate for each parameter, La-MAML can dynamically control plasticity and stability on a per-parameter basis.",
+    "paper_url": "https://arxiv.org/abs/2007.13904",
+    "tags": ["Meta-learning", "MAML", "Online", "Learning Rate"]
+  },
+  {
+    "id": "mer",
+    "category": "Meta-learning",
+    "name": "Meta-Experience Replay (MER)",
+    "year": 2019,
+    "description": "Combines experience replay with meta-learning by formulating the replay buffer optimization as a meta-learning problem. MER treats each training example as a separate task and uses Reptile-style meta-updates to find parameters that work well across all examples in the buffer.",
+    "paper_url": "https://arxiv.org/abs/1902.10486",
+    "tags": ["Meta-learning", "Replay", "Reptile", "Online"]
+  },
+  {
+    "id": "gdumb",
+    "category": "Hybrid",
+    "name": "GDumb (Greedy Sampler, Dumb Learner)",
+    "year": 2020,
+    "description": "A surprisingly effective baseline that greedily stores samples in a memory buffer using class-balanced reservoir sampling, then trains a model from scratch on only the buffer contents at evaluation time. Despite its simplicity, GDumb matches or outperforms many sophisticated continual learning methods.",
+    "paper_url": "https://arxiv.org/abs/2003.10123",
+    "tags": ["Hybrid", "Baseline", "Simple", "Buffer", "Benchmark: CIFAR100"]
+  },
+  {
+    "id": "cope",
+    "category": "Hybrid",
+    "name": "CoPE (Continual Prototype Evolution)",
+    "year": 2021,
+    "description": "Combines replay with prototype-based learning by maintaining evolving class prototypes in a learned embedding space. Prototypes are updated using a momentum mechanism as new data arrives, enabling efficient nearest-prototype classification in continual learning settings.",
+    "paper_url": "https://arxiv.org/abs/2009.00919",
+    "tags": ["Hybrid", "Prototype", "Replay", "Metric Learning"]
+  },
+  {
+    "id": "expert-gate",
+    "category": "Hybrid",
+    "name": "Expert Gate",
+    "year": 2017,
+    "description": "Trains a separate expert network for each task and uses an autoencoder-based gating mechanism to select the appropriate expert at test time. By combining task-specific experts with a learned routing mechanism, Expert Gate achieves strong performance without requiring task identity at inference.",
+    "paper_url": "https://arxiv.org/abs/1611.06194",
+    "tags": ["Hybrid", "Expert", "Gating", "Task Inference"]
+  },
+  {
+    "id": "compass",
+    "category": "Hybrid",
+    "name": "CLS-ER (Complementary Learning Systems ER)",
+    "year": 2022,
+    "description": "Inspired by the Complementary Learning Systems theory in neuroscience, CLS-ER maintains two semantic memory models updated at different rates alongside an episodic memory buffer. The fast and slow learners work together to balance stability and plasticity in continual learning.",
+    "paper_url": "https://arxiv.org/abs/2205.13452",
+    "tags": ["Hybrid", "Neuroscience-inspired", "Dual Memory", "Replay"]
+  }
+]
